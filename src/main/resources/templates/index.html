@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Locadora Brass - Menu Principal</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-light">
+
+<div class="container py-5">
+    <h1 class="text-center text-primary mb-5">Menu Principal</h1>
+
+    <div class="d-grid gap-3 col-6 mx-auto">
+        <button class="btn btn-primary btn-lg" id="btnCliente">Cadastro de Cliente</button>
+        <button class="btn btn-primary btn-lg" id="btnVeiculo">Cadastro de Veículo</button>
+        <button class="btn btn-primary btn-lg" id="btnListarClientes">Listar Clientes</button>
+        <button class="btn btn-primary btn-lg" id="btnListarVeiculos">Listar Veículos</button>
+        <button class="btn btn-success btn-lg" id="btnAluguel">Novo Aluguel</button>
+    </div>
+</div>
+
+<script>
+    document.getElementById("btnCliente").onclick = function() {
+        window.location.href = "cadastro_cliente.html";
+    };
+    document.getElementById("btnVeiculo").onclick = function() {
+        window.location.href = "cadastro_veiculo.html";
+    };
+    document.getElementById("btnListarClientes").onclick = function() {
+        window.location.href = "listar_clientes.html";
+    };
+    document.getElementById("btnListarVeiculos").onclick = function() {
+        window.location.href = "listar_veiculos.html";
+    };
+    document.getElementById("btnAluguel").onclick = function() {
+        window.location.href = "aluguel.html";
+    };
+</script>
+
+</body>
+</html>

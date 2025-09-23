@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cadastro de Cliente</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-light">
+
+<div class="container py-5">
+    <h2 class="text-center text-primary mb-4">Cadastro de Cliente</h2>
+    <div class="card p-4 shadow-sm">
+        <form id="formCliente">
+            <div class="mb-3">
+                <label for="nome" class="form-label">Nome</label>
+                <input type="text" class="form-control" id="nome" required>
+            </div>
+            <div class="mb-3">
+                <label for="cpfCnpj" class="form-label">CPF/CNPJ</label>
+                <input type="text" class="form-control" id="cpfCnpj" required>
+            </div>
+            <div class="mb-3">
+                <label for="dataNascimento" class="form-label">Data Nascimento (dd/MM/yyyy)</label>
+                <input type="text" class="form-control" id="dataNascimento" placeholder="dd/MM/yyyy" required>
+            </div>
+            <div class="mb-3">
+                <label for="endereco" class="form-label">Endereço</label>
+                <input type="text" class="form-control" id="endereco" required>
+            </div>
+            <div class="d-flex justify-content-between">
+                <button type="submit" class="btn btn-primary">Salvar</button>
+                <button type="button" class="btn btn-secondary" onclick="window.location.href='index.html'">Voltar</button>
+                <button type="button" class="btn btn-success" onclick="window.location.href='cadastro_veiculo.html'">Próximo: Veículo</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+<script>
+$(document).ready(function(){
+    $('#formCliente').submit(function(e){
+        e.preventDefault();
+
+        let nome = $('#nome').val().trim();
+        let cpfCnpj = $('#cpfCnpj').val().trim();
+        let dataNascimento = $('#dataNascimento').val().trim();
+        let endereco = $('#endereco').val().trim();
+
+        if(!nome || !cpfCnpj || !dataNascimento || !endereco){
+            alert("Preencha todos os campos.");
+            return;
+        }
+
+        // Simular cadastro salvando em cookie
+        let cliente = {nome, cpfCnpj, dataNascimento, endereco};
+        localStorage.setItem('cliente', JSON.stringify(cliente));
+        setCookie('clienteSelecionado', nome, 1);
+
+        alert("Cliente cadastrado com sucesso!");
+        $('#formCliente')[0].reset();
+    });
+});
+
+function setCookie(name, value, days=1) {
+    let expires = "";
+    if(days){
+        let date = new Date();
+        date.setTime(date.getTime() + (days*24*60*60*1000));
+        expires = "; expires=" + date.toUTCString();
+    }
+    document.cookie = name + "=" + value + expires + "; path=/";
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Novo Aluguel</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-light">
+
+<div class="container py-5">
+    <h2 class="text-center text-primary mb-4">Novo Aluguel</h2>
+    <div class="card p-4 shadow-sm">
+        <form id="formAluguel">
+            <div class="mb-3">
+                <label class="form-label">Cliente:</label>
+                <p id="clienteSelecionado" class="fw-bold"></p>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Veículo:</label>
+                <p id="veiculoSelecionado" class="fw-bold"></p>
+            </div>
+            <div class="mb-3">
+                <label for="dias" class="form-label">Dias de Aluguel:</label>
+                <input type="number" class="form-control" id="dias" min="1" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Valor Total:</label>
+                <p id="valorTotal">R$ 0,00</p>
+            </div>
+            <div class="d-flex justify-content-between">
+                <button type="button" class="btn btn-primary" id="btnCalcular">Calcular</button>
+                <button type="submit" class="btn btn-success">Confirmar Aluguel</button>
+                <button type="button" class="btn btn-secondary" onclick="window.location.href='index.html'">Voltar</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+<script>
+$(document).ready(function(){
+    let clienteNome = getCookie('clienteSelecionado');
+    let veiculoNome = getCookie('veiculoSelecionado');
+    let veiculo = JSON.parse(localStorage.getItem('veiculo'));
+
+    if(!clienteNome || !veiculoNome){
+        alert("Selecione cliente e veículo antes de prosseguir.");
+        window.location.href = 'index.html';
+    } else {
+        $('#clienteSelecionado').text(clienteNome);
+        $('#veiculoSelecionado').text(veiculoNome);
+    }
+
+    $('#btnCalcular').click(function(){
+        let dias = parseInt($('#dias').val());
+        if(!dias || dias <= 0){
+            alert("Digite um número válido de dias.");
+            return;
+        }
+        let total = dias * parseFloat(veiculo.diaria);
+        $('#valorTotal').text("R$ " + total.toFixed(2));
+    });
+
+    $('#formAluguel').submit(function(e){
+        e.preventDefault();
+        let dias = parseInt($('#dias').val());
+        if(!dias || dias <= 0){
+            alert("Digite um número válido de dias.");
+            return;
+        }
+        let total = dias * parseFloat(veiculo.diaria);
+        alert("Aluguel registrado com sucesso!\nValor total: R$ " + total.toFixed(2));
+        $('#dias').val('');
+        $('#valorTotal').text("R$ 0,00");
+    });
+});
+
+function getCookie(name){
+    let cookies = document.cookie.split(';');
+    for(let c of cookies){
+        let [key, value] = c.trim().split('=');
+        if(key === name) return value;
+    }
+    return null;
+}
+</script>
+</body>
+</html>
